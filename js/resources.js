@@ -5,7 +5,6 @@
  * to load the same image multiple times.
  */
 (function() {
-  'use strict';
   var resourceCache = {};
   var loading = [];
   var readyCallbacks = [];
