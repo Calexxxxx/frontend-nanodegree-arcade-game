@@ -26,7 +26,7 @@ gulp.task('html', function() {
       browserSync.notify(err.message, 20000);
       this.emit('end');
     })
-    .pipe(gulp.dest('dist/'))
+    .pipe(gulp.dest('docs/'))
     .pipe(reload({ stream: true }));
 });
 
@@ -41,7 +41,7 @@ gulp.task('img', function() {
       browserSync.notify(err.message, 20000);
       this.emit('end');
     })
-    .pipe(gulp.dest('dist/images/'))
+    .pipe(gulp.dest('docs/images/'))
     .pipe(reload({ stream: true }));
 });
 
@@ -57,7 +57,7 @@ gulp.task('js', function() {
       this.emit('end');
     })
     .pipe(babel())
-    .pipe(gulp.dest('dist/js/'))
+    .pipe(gulp.dest('docs/js/'))
     .pipe(reload({ stream: true }));
 });
 
@@ -72,7 +72,7 @@ gulp.task('css', function() {
       browserSync.notify(err.message, 20000);
       this.emit('end');
     })
-    .pipe(gulp.dest('dist/css/'))
+    .pipe(gulp.dest('docs/css/'))
     .pipe(reload({ stream: true }));
 });
 
@@ -84,7 +84,7 @@ gulp.task('css', function() {
  */
 gulp.task('serve', ['html', 'css', 'js', 'img'], function() {
   browserSync.init({
-    server: './dist'
+    server: './docs'
   });
   gulp.watch(['js/**/*.js'], ['js']);
   gulp.watch(['css/**/*.css'], ['css']);
