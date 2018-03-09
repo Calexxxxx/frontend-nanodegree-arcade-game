@@ -290,7 +290,7 @@ class Player {
       allEnemies.push(new Enemy(Math.random() * 180 + 30, 5, player));
     else if (this.level === 21)
       allEnemies.push(new Enemy(Math.random() * 180 + 30, 1, player));
-    else if (this.level === 4) this.playerWon = true;
+    else if (this.level === 30) this.playerWon = true;
   }
 
   /**
