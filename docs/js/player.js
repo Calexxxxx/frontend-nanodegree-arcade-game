@@ -24,6 +24,7 @@ var Player = function () {
     this.startGameText = 'Please Select Your Avatar To Play The Game.';
     this.isGameOver = false;
     this.lifesIcon = 'images/heart.png';
+    this.playerWon = false;
   }
 
   _createClass(Player, [{
@@ -31,6 +32,8 @@ var Player = function () {
     value: function update(dt) {
       if (player.lifes === 0) {
         this.gameOver();
+      } else if (this.playerWon === true) {
+        this.playerWonGame();
       }
     }
 
@@ -52,6 +55,9 @@ var Player = function () {
         // start screen text if player is game over text changes
         if (this.isGameOver === true) {
           ctx.fillText('Game Over Wanna Try Again?', 235, 135);
+        } else if (this.playerWon === true) {
+          ctx.fillText('Congratulations You Won!!!!', 135, 100);
+          ctx.fillText('Play Again?', 135, 160);
         } else {
           // info text start screen
           ctx.fillText(this.startGameText, 135, 100);
@@ -234,7 +240,23 @@ var Player = function () {
     value: function levelUpdate() {
       this.level++;
       this.score += 50;
-      if (this.level === 3) allEnemies.push(new Enemy(Math.random() * 150 + 30, 3, player));else if (this.level === 6) allEnemies.push(new Enemy1(Math.random() * 150 + 30, 5, player));else if (this.level === 9) allEnemies.push(new Enemy(Math.random() * 150 + 30, 6, player));else if (this.level === 12) allEnemies.push(new Enemy1(Math.random() * 180 + 30, 6, player));else if (this.level === 15) allEnemies.push(new Enemy(Math.random() * 180 + 30, 3, player));else if (this.level === 18) allEnemies.push(new Enemy(Math.random() * 180 + 30, 5, player));else if (this.level === 21) allEnemies.push(new Enemy(Math.random() * 180 + 30, 1, player));
+      if (this.level === 3) allEnemies.push(new Enemy(Math.random() * 150 + 30, 3, player));else if (this.level === 6) allEnemies.push(new Enemy1(Math.random() * 150 + 30, 5, player));else if (this.level === 9) allEnemies.push(new Enemy(Math.random() * 150 + 30, 6, player));else if (this.level === 12) allEnemies.push(new Enemy1(Math.random() * 180 + 30, 6, player));else if (this.level === 15) allEnemies.push(new Enemy(Math.random() * 180 + 30, 3, player));else if (this.level === 18) allEnemies.push(new Enemy(Math.random() * 180 + 30, 5, player));else if (this.level === 21) allEnemies.push(new Enemy(Math.random() * 180 + 30, 1, player));else if (this.level === 4) this.playerWon = true;
+    }
+
+    /**
+     * @description - when the player reaches level 30 he won the game
+     */
+
+  }, {
+    key: 'playerWonGame',
+    value: function playerWonGame() {
+      this.avatarSelected = false;
+      this.score = 0;
+      this.level = 1;
+      this.lifes = 3;
+      this.lifeCollected = false;
+      this.isGameOver = false;
+      this.playerWon = true;
     }
 
     /**
@@ -261,6 +283,7 @@ var Player = function () {
       this.lifes = 3;
       this.lifeCollected = false;
       this.isGameOver = true;
+      this.playerWon = false;
     }
   }]);
 

@@ -22,11 +22,14 @@ class Player {
     this.startGameText = 'Please Select Your Avatar To Play The Game.';
     this.isGameOver = false;
     this.lifesIcon = 'images/heart.png';
+    this.playerWon = false;
   }
 
   update(dt) {
     if (player.lifes === 0) {
       this.gameOver();
+    } else if (this.playerWon === true) {
+      this.playerWonGame();
     }
   }
 
@@ -45,6 +48,9 @@ class Player {
       // start screen text if player is game over text changes
       if (this.isGameOver === true) {
         ctx.fillText('Game Over Wanna Try Again?', 235, 135);
+      } else if (this.playerWon === true) {
+        ctx.fillText(`Congratulations You Won!!!!`, 135, 100);
+        ctx.fillText(`Play Again?`, 135, 160);
       } else {
         // info text start screen
         ctx.fillText(this.startGameText, 135, 100);
@@ -284,6 +290,20 @@ class Player {
       allEnemies.push(new Enemy(Math.random() * 180 + 30, 5, player));
     else if (this.level === 21)
       allEnemies.push(new Enemy(Math.random() * 180 + 30, 1, player));
+    else if (this.level === 4) this.playerWon = true;
+  }
+
+  /**
+   * @description - when the player reaches level 30 he won the game
+   */
+  playerWonGame() {
+    this.avatarSelected = false;
+    this.score = 0;
+    this.level = 1;
+    this.lifes = 3;
+    this.lifeCollected = false;
+    this.isGameOver = false;
+    this.playerWon = true;
   }
 
   /**
@@ -304,5 +324,6 @@ class Player {
     this.lifes = 3;
     this.lifeCollected = false;
     this.isGameOver = true;
+    this.playerWon = false;
   }
 }
