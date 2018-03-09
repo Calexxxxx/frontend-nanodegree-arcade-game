@@ -304,6 +304,10 @@ class Player {
     this.lifeCollected = false;
     this.isGameOver = false;
     this.playerWon = true;
+    allEnemies = [];
+    allEnemies.push(new Enemy1(Math.random() * 100 + 30, 3, player));
+    allEnemies.push(new Enemy(Math.random() * 100 + 30, 5, player));
+    allEnemies.push(new Enemy1(Math.random() * 100 + 30, 6, player));
   }
 
   /**
@@ -325,5 +329,9 @@ class Player {
     this.lifeCollected = false;
     this.isGameOver = true;
     this.playerWon = false;
+    allEnemies = [];
+    allEnemies.push(new Enemy1(Math.random() * 100 + 30, 3, player));
+    allEnemies.push(new Enemy(Math.random() * 100 + 30, 5, player));
+    allEnemies.push(new Enemy1(Math.random() * 100 + 30, 6, player));
   }
 }
