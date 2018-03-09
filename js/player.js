@@ -169,7 +169,7 @@ class Player {
           (this.x === 520 && this.y === 591) || // row 7
           (this.x === 318 && this.y === 342) || // row 4
           (this.x === 722 && this.y === 342) || // row 4
-          (this.x === 318 && this.y === 176) || // row 2
+          (this.x === 621 && this.y === 176) || // row 2
           (this.x === 318 && this.y === 10) // row 0
         )
           return;
@@ -184,7 +184,7 @@ class Player {
           (this.x === 520 && this.y === 591) || // row 7
           (this.x === 116 && this.y === 342) || // row 4
           (this.x === 520 && this.y === 342) || // row 4
-          (this.x === 318 && this.y === 176) || // row 2
+          (this.x === 621 && this.y === 176) || // row 2
           (this.x === 419 && this.y === 10) // row 0
         )
           return;
@@ -208,7 +208,7 @@ class Player {
           (this.y === 259 && this.x === 217) || // row 4
           (this.y === 259 && this.x === 419) || // row 4
           (this.y === 259 && this.x === 520) || // row 4
-          (this.y === 259 && this.x === 621) || // row 4
+          (this.y === 259 && this.x === 318) || // row 4
           (this.y === 259 && this.x === 722) || // row 4
           (this.y === 93 && this.x === 15) || // row 3
           (this.y === 93 && this.x === 116) || // row 3
@@ -244,7 +244,7 @@ class Player {
           (this.y === 93 && this.x === 217) || // row 1
           (this.y === 93 && this.x === 419) || // row 1
           (this.y === 93 && this.x === 520) || // row 1
-          (this.y === 93 && this.x === 621) || // row 1
+          (this.y === 93 && this.x === 318) || // row 1
           (this.y === 93 && this.x === 722) // row 1
         )
           return;

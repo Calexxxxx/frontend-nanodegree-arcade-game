@@ -102,10 +102,10 @@ var Engine = function Engine() {
     ctx.drawImage(Resources.get(rowImages[7]), 0 * 101, 2 * 83, 101, 83);
     ctx.drawImage(Resources.get(rowImages[7]), 1 * 101, 2 * 83, 101, 83);
     ctx.drawImage(Resources.get(rowImages[7]), 2 * 101, 2 * 83, 101, 83);
-    ctx.drawImage(Resources.get(rowImages[8]), 3 * 101, 2 * 83, 101, 83);
+    ctx.drawImage(Resources.get(rowImages[7]), 3 * 101, 2 * 83, 101, 83);
     ctx.drawImage(Resources.get(rowImages[7]), 4 * 101, 2 * 83, 101, 83);
     ctx.drawImage(Resources.get(rowImages[7]), 5 * 101, 2 * 83, 101, 83);
-    ctx.drawImage(Resources.get(rowImages[7]), 6 * 101, 2 * 83, 101, 83);
+    ctx.drawImage(Resources.get(rowImages[8]), 6 * 101, 2 * 83, 101, 83);
     ctx.drawImage(Resources.get(rowImages[7]), 7 * 101, 2 * 83, 101, 83);
 
     // row 3
