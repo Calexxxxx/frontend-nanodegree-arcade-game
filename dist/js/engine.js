@@ -1,20 +1,22 @@
-const doc = document; // the document
-const win = window; // the window
-const game = doc.getElementById('game'); // wrapper for the canvas
-const canvas = doc.createElement('canvas'); // canvas
-const ctx = canvas.getContext('2d'); // getContext 2d
-const allEnemies = []; // array of all enemies
-let lastTime;
-let numCols;
-let numRows;
+'use strict';
 
-const Engine = function() {
+var doc = document; // the document
+var win = window; // the window
+var game = doc.getElementById('game'); // wrapper for the canvas
+var canvas = doc.createElement('canvas'); // canvas
+var ctx = canvas.getContext('2d'); // getContext 2d
+var allEnemies = []; // array of all enemies
+var lastTime = void 0;
+var numCols = void 0;
+var numRows = void 0;
+
+var Engine = function Engine() {
   /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
      */
   function main() {
     var now = Date.now(),
-      dt = (now - lastTime) / 1000.0;
+        dt = (now - lastTime) / 1000.0;
 
     update(dt);
     render();
@@ -55,7 +57,7 @@ const Engine = function() {
      * render methods.
      */
   function updateEntities(dt) {
-    allEnemies.forEach(function(enemy) {
+    allEnemies.forEach(function (enemy) {
       enemy.update(dt);
     });
     player.update();
@@ -66,19 +68,7 @@ const Engine = function() {
    * @description creates the canvas and renders all elements used to create the map
    */
   function render() {
-    var rowImages = [
-      'images/castle-tower.png',
-      'images/castle-tower1.png',
-      'images/castle-wall.png',
-      'images/ground-field.png',
-      'images/field-cows.png',
-      'images/field.png',
-      'images/path.png',
-      'images/water.png',
-      'images/water-bridge.png',
-      'images/hill.png',
-      'images/bush.png'
-    ];
+    var rowImages = ['images/castle-tower.png', 'images/castle-tower1.png', 'images/castle-wall.png', 'images/ground-field.png', 'images/field-cows.png', 'images/field.png', 'images/path.png', 'images/water.png', 'images/water-bridge.png', 'images/hill.png', 'images/bush.png'];
 
     numRows = 8;
     numCols = 8;
@@ -159,19 +149,14 @@ const Engine = function() {
     // give the player one time a life refill
     if (player.lifes === 1) {
       // position of the heart
-      let xL = 505;
-      let yL = 255;
+      var xL = 505;
+      var yL = 255;
       // check if it is collected
       if (player.lifeCollected === false) {
         ctx.drawImage(Resources.get('images/heart.png'), xL, yL, 70, 60);
       }
       // if life is collected increase lifes with 2 and remove the heart
-      if (
-        xL < player.x + 60 &&
-        xL + 60 > player.x &&
-        yL < player.y + 60 &&
-        yL + 60 > player.y
-      ) {
+      if (xL < player.x + 60 && xL + 60 > player.x && yL < player.y + 60 && yL + 60 > player.y) {
         player.lifeCollected = true;
         player.lifes += 2;
       }
@@ -180,7 +165,7 @@ const Engine = function() {
 
   // render all game elements
   function renderEntities() {
-    allEnemies.forEach(function(enemy) {
+    allEnemies.forEach(function (enemy) {
       enemy.render();
     });
     player.render();
@@ -195,28 +180,6 @@ const Engine = function() {
   }
 
   // all images used in the game
-  Resources.load([
-    'images/castle-tower.png',
-    'images/castle-wall.png',
-    'images/castle-tower1.png',
-    'images/ground-field.png',
-    'images/field-cows.png',
-    'images/field.png',
-    'images/path.png',
-    'images/water.png',
-    'images/water-bridge.png',
-    'images/hill.png',
-    'images/bush.png',
-    'images/female-archer.png',
-    'images/wizard-female.png',
-    'images/night-sword-shield.png',
-    'images/viking-sword-shield.png',
-    'images/wizard-male.png',
-    'images/Selector.png',
-    'images/enemy1.png',
-    'images/enemy2.png',
-    'images/heart.png',
-    'images/diamond.png'
-  ]);
+  Resources.load(['images/castle-tower.png', 'images/castle-wall.png', 'images/castle-tower1.png', 'images/ground-field.png', 'images/field-cows.png', 'images/field.png', 'images/path.png', 'images/water.png', 'images/water-bridge.png', 'images/hill.png', 'images/bush.png', 'images/female-archer.png', 'images/wizard-female.png', 'images/night-sword-shield.png', 'images/viking-sword-shield.png', 'images/wizard-male.png', 'images/Selector.png', 'images/enemy1.png', 'images/enemy2.png', 'images/heart.png', 'images/diamond.png']);
   Resources.onReady(init);
 };

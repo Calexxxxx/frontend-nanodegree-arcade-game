@@ -1,4 +1,6 @@
-const player = new Player(); // create a new player
+'use strict';
+
+var player = new Player(); // create a new player
 
 allEnemies = new Array(); // an array with all enemies
 // pushing new enemies onto the array adding extra enemies is done in player.js
@@ -7,16 +9,16 @@ allEnemies.push(new Enemy(Math.random() * 100 + 30, 5, player));
 allEnemies.push(new Enemy1(Math.random() * 100 + 30, 6, player));
 
 // listen to keypresses
-document.addEventListener('keyup', function(e) {
+document.addEventListener('keyup', function (e) {
   // game controls
-  const allowedKeys = {
+  var allowedKeys = {
     37: 'left',
     38: 'up',
     39: 'right',
     40: 'down'
   };
   // avatar selection controls
-  const avatarKeys = {
+  var avatarKeys = {
     37: 'left',
     13: 'enter',
     39: 'right'

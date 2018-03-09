@@ -1,0 +1,30 @@
+{
+  "name": "newfrog",
+  "version": "1.0.0",
+  "description": "classic arcade game clone",
+  "main": "app.js",
+  "scripts": {
+    "start": "gulp serve"
+  },
+  "repository": {
+    "type": "git",
+    "url":
+      "git+https://github.com/Calexxxxx/frontend-nanodegree-arcade-game.git"
+  },
+  "author": "Pascal Meers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Calexxxxx/frontend-nanodegree-arcade-game/issues"
+  },
+  "homepage":
+    "https://github.com/Calexxxxx/frontend-nanodegree-arcade-game#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "browser-sync": "^2.23.6",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "gulp-gh-pages": "^0.5.4"
+  }
+}
