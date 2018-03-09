@@ -21,6 +21,8 @@ If you want to make changes to the game do this in the src folder.
 
 ## Playing the game
 
+[Live Version](https://calexxxxx.github.io/frontend-nanodegree-arcade-game/)
+
 first you will see a select your avatar screen where you will need to select an avatar to play with.
 You can select an avatar by using your right and left arrow key on the keyboard.
 Once you selected the desired avatar you can use enter to start the game.
