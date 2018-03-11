@@ -155,6 +155,9 @@ const Engine = function() {
       renderEntities();
     }
     player.render();
+
+    // checks if players life is 1 than gives a one time refillLifes
+    // had to check this part here for some reason it didn't work inside the player class
     if (player.lifes === 1) {
       player.refillLifes();
     }
