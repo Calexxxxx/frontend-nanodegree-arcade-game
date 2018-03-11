@@ -38,6 +38,11 @@ var Enemy = function (_Character) {
         this.speed = Math.random() * 100 + 30;
       }
 
+      this.checkCollision();
+    }
+  }, {
+    key: 'checkCollision',
+    value: function checkCollision() {
       if (this.x < this.player.x + 60 && this.x + 60 > this.player.x && this.y < this.player.y + 60 && this.y + 60 > this.player.y) {
         this.player.minLife();
         this.player.resetPlayer();
