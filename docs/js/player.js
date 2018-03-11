@@ -235,6 +235,11 @@ var Player = function (_Character) {
     value: function minLife() {
       this.lifes--;
     }
+
+    /**
+     * @description - when the players lifes reaches 1 he/she will get a one time refill
+     */
+
   }, {
     key: 'refillLifes',
     value: function refillLifes() {

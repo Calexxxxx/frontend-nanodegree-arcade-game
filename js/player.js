@@ -267,6 +267,9 @@ class Player extends Character {
     this.lifes--;
   }
 
+  /**
+   * @description - when the players lifes reaches 1 he/she will get a one time refill
+   */
   refillLifes() {
     // position of the heart
     let xL = 505;

@@ -148,6 +148,7 @@ var Engine = function Engine() {
 
     // checks if players life is 1 than gives a one time refillLifes
     // had to check this part here for some reason it didn't work inside the player class
+    // i tried in the player update function since gameover and playerWonGame work there but rendering the life icon doesn't work.
     if (player.lifes === 1) {
       player.refillLifes();
     }
