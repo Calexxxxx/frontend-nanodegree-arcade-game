@@ -1,4 +1,3 @@
-'use strict';
 const player = new Player(); // create a new player
 
 allEnemies = new Array(); // an array with all enemies
