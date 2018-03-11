@@ -37,7 +37,7 @@ var Player = function (_Character) {
   _createClass(Player, [{
     key: 'update',
     value: function update(dt) {
-      if (player.lifes === 0) {
+      if (this.lifes === 0) {
         this.gameOver();
       } else if (this.playerWon === true) {
         this.playerWonGame();
@@ -234,6 +234,22 @@ var Player = function (_Character) {
     key: 'minLife',
     value: function minLife() {
       this.lifes--;
+    }
+  }, {
+    key: 'refillLifes',
+    value: function refillLifes() {
+      // position of the heart
+      var xL = 505;
+      var yL = 255;
+      // check if it is collected
+      if (this.lifeCollected === false) {
+        ctx.drawImage(Resources.get(this.lifesIcon), xL, yL, 70, 60);
+      }
+      // if life is collected increase lifes with 2 and remove the heart
+      if (xL < this.x + 60 && xL + 60 > this.x && yL < this.y + 60 && yL + 60 > this.y) {
+        this.lifeCollected = true;
+        this.lifes += 2;
+      }
     }
 
     /**

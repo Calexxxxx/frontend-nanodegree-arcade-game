@@ -145,21 +145,8 @@ var Engine = function Engine() {
       renderEntities();
     }
     player.render();
-
-    // give the player one time a life refill
     if (player.lifes === 1) {
-      // position of the heart
-      var xL = 505;
-      var yL = 255;
-      // check if it is collected
-      if (player.lifeCollected === false) {
-        ctx.drawImage(Resources.get('images/heart.png'), xL, yL, 70, 60);
-      }
-      // if life is collected increase lifes with 2 and remove the heart
-      if (xL < player.x + 60 && xL + 60 > player.x && yL < player.y + 60 && yL + 60 > player.y) {
-        player.lifeCollected = true;
-        player.lifes += 2;
-      }
+      player.refillLifes();
     }
   }
 

@@ -25,7 +25,7 @@ class Player extends Character {
   }
 
   update(dt) {
-    if (player.lifes === 0) {
+    if (this.lifes === 0) {
       this.gameOver();
     } else if (this.playerWon === true) {
       this.playerWonGame();
@@ -265,6 +265,26 @@ class Player extends Character {
    */
   minLife() {
     this.lifes--;
+  }
+
+  refillLifes() {
+    // position of the heart
+    let xL = 505;
+    let yL = 255;
+    // check if it is collected
+    if (this.lifeCollected === false) {
+      ctx.drawImage(Resources.get(this.lifesIcon), xL, yL, 70, 60);
+    }
+    // if life is collected increase lifes with 2 and remove the heart
+    if (
+      xL < this.x + 60 &&
+      xL + 60 > this.x &&
+      yL < this.y + 60 &&
+      yL + 60 > this.y
+    ) {
+      this.lifeCollected = true;
+      this.lifes += 2;
+    }
   }
 
   /**
