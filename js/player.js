@@ -2,8 +2,9 @@
  * @description - Creates a player and handles all input received from the keyboard
  * @constructor new Player
  */
-class Player {
+class Player extends Character {
   constructor() {
+    super(3 * 101 + 15, 8 * 83 + 10);
     this.avatarList = [
       'images/wizard-female.png',
       'images/night-sword-shield.png',
@@ -11,8 +12,6 @@ class Player {
       'images/wizard-male.png',
       'images/female-archer.png'
     ];
-    this.x = 3 * 101 + 15;
-    this.y = 8 * 83 + 10;
     this.id = 3;
     this.avatarSelected = false;
     this.score = 0;

@@ -3,13 +3,12 @@
  * @constructor new Enemy
  */
 const allEnemies = [];
-class Enemy {
+class Enemy extends Character {
   constructor(speed, row, player) {
+    super(0, 83 * row + 10);
     this.sprite = 'images/enemy1.png';
     this.player = player;
     this.speed = speed;
-    this.x = 0;
-    this.y = 83 * row + 10;
   }
 
   update(dt) {

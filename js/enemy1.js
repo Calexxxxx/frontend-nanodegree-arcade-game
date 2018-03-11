@@ -2,13 +2,12 @@
  * @description - Creates a new enemy and checks if the enemy colides with the player
  * @constructor new Enemy1
  */
-class Enemy1 {
+class Enemy1 extends Character {
   constructor(speed, row, player) {
+    super(0, 83 * row + 10);
     this.sprite = 'images/enemy2.png';
     this.player = player;
     this.speed = speed;
-    this.x = 0;
-    this.y = 83 * row + 10;
   }
 
   update(dt) {

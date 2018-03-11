@@ -1,0 +1,306 @@
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/**
+ * @description - Creates a player and handles all input received from the keyboard
+ * @constructor new Player
+ */
+var Player = function (_Character) {
+  _inherits(Player, _Character);
+
+  function Player() {
+    _classCallCheck(this, Player);
+
+    var _this = _possibleConstructorReturn(this, (Player.__proto__ || Object.getPrototypeOf(Player)).call(this, 3 * 101 + 15, 8 * 83 + 10));
+
+    _this.avatarList = ['images/wizard-female.png', 'images/night-sword-shield.png', 'images/viking-sword-shield.png', 'images/wizard-male.png', 'images/female-archer.png'];
+    _this.id = 3;
+    _this.avatarSelected = false;
+    _this.score = 0;
+    _this.level = 1;
+    _this.lifes = 3;
+    _this.lifeCollected = false;
+    _this.startGameText = 'Please Select Your Avatar To Play The Game.';
+    _this.isGameOver = false;
+    _this.lifesIcon = 'images/heart.png';
+    _this.playerWon = false;
+    return _this;
+  }
+
+  _createClass(Player, [{
+    key: 'update',
+    value: function update(dt) {
+      if (player.lifes === 0) {
+        this.gameOver();
+      } else if (this.playerWon === true) {
+        this.playerWonGame();
+      }
+    }
+
+    /**
+     * @description - if there is no avatar selected it shows the begin screen to choose your avatar
+     * else it starts the game.
+     */
+
+  }, {
+    key: 'render',
+    value: function render() {
+      if (this.avatarSelected === false) {
+        // background
+        ctx.fillStyle = '#9AD262';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font = '30px serif';
+        ctx.fillStyle = '#fff';
+        // start screen text if player is game over text changes
+        if (this.isGameOver === true) {
+          ctx.fillText('Game Over Wanna Try Again?', 235, 135);
+        } else if (this.playerWon === true) {
+          ctx.fillText('Congratulations You Won!!!!', 135, 100);
+          ctx.fillText('Play Again?', 135, 160);
+        } else {
+          // info text start screen
+          ctx.fillText(this.startGameText, 135, 100);
+          ctx.font = '25px FontAwesome';
+
+          ctx.fillText('Info', 135, 150);
+          ctx.font = '20px FontAwesome';
+          ctx.fillText('Use the \uF104 or \uF105 key to switch avatar and enter to start the game', 135, 170);
+          ctx.fillText('Use the < or > key to move left and right', 135, 195);
+          ctx.fillText('Use the \uF106 or \uF107 key to move up and down', 135, 220);
+        }
+
+        // avatar drawings
+        ctx.drawImage(Resources.get('images/Selector.png'), this.id * 101 + 1.8 * 100, 6 * 83 - 65, 80, 150);
+        ctx.drawImage(Resources.get(this.avatarList[this.id]), 3.4 * 101, 4 * 83 - 40, 150, 150);
+        for (var avatar in this.avatarList) {
+          ctx.drawImage(Resources.get(this.avatarList[avatar]), avatar * 101 + 1.8 * 101, 6 * 83 - 20, 80, 90);
+        }
+      } else {
+        ctx.font = '20px serif';
+        // score bar background
+        ctx.fillStyle = 'rgba(54,54,54,.5)';
+        ctx.fillRect(0, 0, canvas.width, 40);
+
+        // score text
+        ctx.fillStyle = '#fff';
+        ctx.fillText('score ' + this.score, 10, 30);
+
+        // level text
+        ctx.fillStyle = '#fff';
+        var textLevel = ctx.measureText('level ' + this.level);
+        ctx.fillText('level ' + this.level, canvas.width / 2 - textLevel.width / 2, 30);
+
+        // lifes
+        for (var i = 0; i <= this.lifes; i++) {
+          ctx.drawImage(Resources.get(this.lifesIcon), canvas.width - i * 35, 5, 30, 30);
+        }
+        ctx.drawImage(Resources.get(this.avatarList[this.id]), this.x, this.y, 83, 60);
+      }
+    }
+
+    /**
+     * @description - Handles input from the player on selecting an avatar
+     * @param {string} input - receives the keydown input from app.js
+     */
+
+  }, {
+    key: 'handleAvatarInput',
+    value: function handleAvatarInput(input) {
+      switch (input) {
+        case 'left':
+          if (this.id > 0) this.id -= 1;
+          break;
+        case 'right':
+          if (this.id < 4) this.id += 1;
+          break;
+        case 'enter':
+          this.avatarSelected = true;
+      }
+    }
+
+    /**
+     * @description - Handles the player movements and blocks player from moving out of the canvas or into any obstacle on the canvas
+     * row 0 castle towers
+     * row 1 fields and cows
+     * row 2 water with one bridge
+     * row 3 path with enemy on reaching level 5 two enemies
+     * row 4 bush and hill
+     * row 5 path with enemy on reaching level 10 two enemies
+     * row 6 path with enemy on reaching level 15 two enemies
+     * row 7 water with two bridges
+     * row 8 starting position of the player after selecting an avatar also resetPlayer goes to this position
+     * @param {string} input - receives the keydown input from app.js
+     * @returns {number} y - up or down position on the canvas
+     * @returns {number} x - left or right position on the canvas
+     */
+
+  }, {
+    key: 'handleInput',
+    value: function handleInput(input) {
+      switch (input) {
+        // return if player wants to go left from any of these x/y cordinates
+        case 'left':
+          if (this.x === 116 && this.y === 591 || // row 7
+          this.x === 520 && this.y === 591 || // row 7
+          this.x === 318 && this.y === 342 || // row 4
+          this.x === 722 && this.y === 342 || // row 4
+          this.x === 621 && this.y === 176 || // row 2
+          this.x === 318 && this.y === 10 // row 0
+          ) return;else if (this.x > canvas.width / numCols)
+            // move the player left 101
+            this.x -= 101;
+          break;
+        case 'right':
+          // return if player wants to go right from any of these x/y cordinates
+          if (this.x === 116 && this.y === 591 || // row 7
+          this.x === 520 && this.y === 591 || // row 7
+          this.x === 116 && this.y === 342 || // row 4
+          this.x === 520 && this.y === 342 || // row 4
+          this.x === 621 && this.y === 176 || // row 2
+          this.x === 419 && this.y === 10 // row 0
+          ) return;else if (this.x < canvas.width - 101)
+            // move the player right 101
+            this.x += 101;
+          break;
+        case 'up':
+          // return if player wants to go up from any of these x/y cordinates
+          if (this.y === 674 && this.x === 15 || // row 8
+          this.y === 674 && this.x === 217 || // row 8
+          this.y === 674 && this.x === 318 || // row 8
+          this.y === 674 && this.x === 419 || // row 8
+          this.y === 674 && this.x === 621 || // row 8
+          this.y === 674 && this.x === 722 || // row 8
+          this.y === 425 && this.x === 217 || // row 5
+          this.y === 425 && this.x === 621 || // row 5
+          this.y === 259 && this.x === 15 || // row 4
+          this.y === 259 && this.x === 116 || // row 4
+          this.y === 259 && this.x === 217 || // row 4
+          this.y === 259 && this.x === 419 || // row 4
+          this.y === 259 && this.x === 520 || // row 4
+          this.y === 259 && this.x === 318 || // row 4
+          this.y === 259 && this.x === 722 || // row 4
+          this.y === 93 && this.x === 15 || // row 3
+          this.y === 93 && this.x === 116 || // row 3
+          this.y === 93 && this.x === 217 || // row 3
+          this.y === 93 && this.x === 520 || // row 3
+          this.y === 93 && this.x === 621 || // row 3
+          this.y === 93 && this.x === 722 // row 3
+          ) return;else if (this.y > 92)
+            // move the player up 83
+            this.y -= 83;else {
+            // if player reaches the end add one to the level and reset the player
+            this.levelUpdate();
+            this.resetPlayer();
+          }
+          break;
+        case 'down':
+          // return if player wants to go down from any of these x/y cordinates
+          if (this.y === 508 && this.x === 15 || // row 6
+          this.y === 508 && this.x === 217 || // row 6
+          this.y === 508 && this.x === 318 || // row 6
+          this.y === 508 && this.x === 419 || // row 6
+          this.y === 508 && this.x === 621 || // row 6
+          this.y === 508 && this.x === 722 || // row 6
+          this.y === 508 && this.x === 217 || // row 6
+          this.y === 259 && this.x === 217 || // row 3
+          this.y === 259 && this.x === 621 || // row 3
+          this.y === 93 && this.x === 15 || // row 1
+          this.y === 93 && this.x === 116 || // row 1
+          this.y === 93 && this.x === 217 || // row 1
+          this.y === 93 && this.x === 419 || // row 1
+          this.y === 93 && this.x === 520 || // row 1
+          this.y === 93 && this.x === 318 || // row 1
+          this.y === 93 && this.x === 722 // row 1
+          ) return;else if (this.y < canvas.height - 110)
+            // move the player down 83
+            this.y += 83;
+          break;
+      }
+    }
+
+    /**
+     * @description - abstracts one from the current lifes left
+     */
+
+  }, {
+    key: 'minLife',
+    value: function minLife() {
+      this.lifes--;
+    }
+
+    /**
+     * @description - add one level on reaching the gates of the castle
+     * @constructor Enemy - creates a new enemy on reaching level 5 and 15
+     * @constructor Enemy1 - creates a new enemy on reaching level 10
+     */
+
+  }, {
+    key: 'levelUpdate',
+    value: function levelUpdate() {
+      this.level++;
+      this.score += 50;
+      if (this.level === 3) allEnemies.push(new Enemy(Math.random() * 150 + 30, 3, player));else if (this.level === 6) allEnemies.push(new Enemy1(Math.random() * 150 + 30, 5, player));else if (this.level === 9) allEnemies.push(new Enemy(Math.random() * 150 + 30, 6, player));else if (this.level === 12) allEnemies.push(new Enemy1(Math.random() * 180 + 30, 6, player));else if (this.level === 15) allEnemies.push(new Enemy(Math.random() * 180 + 30, 3, player));else if (this.level === 18) allEnemies.push(new Enemy(Math.random() * 180 + 30, 5, player));else if (this.level === 21) allEnemies.push(new Enemy(Math.random() * 180 + 30, 1, player));else if (this.level === 30) this.playerWon = true;
+    }
+
+    /**
+     * @description - when the player reaches level 30 he won the game
+     */
+
+  }, {
+    key: 'playerWonGame',
+    value: function playerWonGame() {
+      this.avatarSelected = false;
+      this.score = 0;
+      this.level = 1;
+      this.lifes = 3;
+      this.lifeCollected = false;
+      this.isGameOver = false;
+      this.playerWon = true;
+      allEnemies = [];
+      allEnemies.push(new Enemy1(Math.random() * 100 + 30, 3, player));
+      allEnemies.push(new Enemy(Math.random() * 100 + 30, 5, player));
+      allEnemies.push(new Enemy1(Math.random() * 100 + 30, 6, player));
+    }
+
+    /**
+     * @description - on reaching the gates of the castle this resets the player back to the starting position
+     */
+
+  }, {
+    key: 'resetPlayer',
+    value: function resetPlayer() {
+      this.x = 3 * 101 + 15;
+      this.y = 8 * 83 + 10;
+    }
+
+    /**
+     * @description - Restart the game and reset everything to original settings
+     */
+
+  }, {
+    key: 'gameOver',
+    value: function gameOver() {
+      this.avatarSelected = false;
+      this.score = 0;
+      this.level = 1;
+      this.lifes = 3;
+      this.lifeCollected = false;
+      this.isGameOver = true;
+      this.playerWon = false;
+      allEnemies = [];
+      allEnemies.push(new Enemy1(Math.random() * 100 + 30, 3, player));
+      allEnemies.push(new Enemy(Math.random() * 100 + 30, 5, player));
+      allEnemies.push(new Enemy1(Math.random() * 100 + 30, 6, player));
+    }
+  }]);
+
+  return Player;
+}(Character);
