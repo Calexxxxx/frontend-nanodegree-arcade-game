@@ -247,7 +247,7 @@ var Player = function (_Character) {
     value: function levelUpdate() {
       this.level++;
       this.score += 50;
-      if (this.level === 3) allEnemies.push(new Enemy(Math.random() * 150 + 30, 3, player));else if (this.level === 6) allEnemies.push(new Enemy1(Math.random() * 150 + 30, 5, player));else if (this.level === 9) allEnemies.push(new Enemy(Math.random() * 150 + 30, 6, player));else if (this.level === 12) allEnemies.push(new Enemy1(Math.random() * 180 + 30, 6, player));else if (this.level === 15) allEnemies.push(new Enemy(Math.random() * 180 + 30, 3, player));else if (this.level === 18) allEnemies.push(new Enemy(Math.random() * 180 + 30, 5, player));else if (this.level === 21) allEnemies.push(new Enemy(Math.random() * 180 + 30, 1, player));else if (this.level === 30) this.playerWon = true;
+      if (this.level === 3) allEnemies.push(new Enemy(Math.random() * 150 + 30, 3, this));else if (this.level === 6) allEnemies.push(new Enemy1(Math.random() * 150 + 30, 5, this));else if (this.level === 9) allEnemies.push(new Enemy(Math.random() * 150 + 30, 6, this));else if (this.level === 12) allEnemies.push(new Enemy1(Math.random() * 180 + 30, 6, this));else if (this.level === 15) allEnemies.push(new Enemy(Math.random() * 180 + 30, 3, this));else if (this.level === 18) allEnemies.push(new Enemy(Math.random() * 180 + 30, 5, this));else if (this.level === 21) allEnemies.push(new Enemy(Math.random() * 180 + 30, 1, this));else if (this.level === 30) this.playerWon = true;
     }
 
     /**
@@ -265,9 +265,9 @@ var Player = function (_Character) {
       this.isGameOver = false;
       this.playerWon = true;
       allEnemies = [];
-      allEnemies.push(new Enemy1(Math.random() * 100 + 30, 3, player));
-      allEnemies.push(new Enemy(Math.random() * 100 + 30, 5, player));
-      allEnemies.push(new Enemy1(Math.random() * 100 + 30, 6, player));
+      allEnemies.push(new Enemy1(Math.random() * 100 + 30, 3, this));
+      allEnemies.push(new Enemy(Math.random() * 100 + 30, 5, this));
+      allEnemies.push(new Enemy1(Math.random() * 100 + 30, 6, this));
     }
 
     /**
@@ -296,9 +296,9 @@ var Player = function (_Character) {
       this.isGameOver = true;
       this.playerWon = false;
       allEnemies = [];
-      allEnemies.push(new Enemy1(Math.random() * 100 + 30, 3, player));
-      allEnemies.push(new Enemy(Math.random() * 100 + 30, 5, player));
-      allEnemies.push(new Enemy1(Math.random() * 100 + 30, 6, player));
+      allEnemies.push(new Enemy1(Math.random() * 100 + 30, 3, this));
+      allEnemies.push(new Enemy(Math.random() * 100 + 30, 5, this));
+      allEnemies.push(new Enemy1(Math.random() * 100 + 30, 6, this));
     }
   }]);
 
